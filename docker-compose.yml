@@ -1,10 +1,9 @@
-version: '3.8'
-
 services:
   influxdb:
+    container_name: test-carga_influxdb
     image: influxdb:1.8
     networks:
-      - test_net 
+      - localnet 
     ports:
       - "8086:8086"
     environment:
@@ -12,8 +11,9 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    container_name: test-carga_grafana
     networks:
-      - test_net 
+      - localnet 
     ports:
       - "3030:3000"
     environment:
@@ -27,51 +27,21 @@ services:
       - ./grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
 
   k6:
+    container_name: test-carga_k6
     image: loadimpact/k6:latest
     networks:
-      - test_net 
+      - localnet 
     ports:
       - "6565:6565"
     environment:
       - K6_OUT=influxdb=http://influxdb:8086/k6
     volumes:
-      - ./scripts:/scripts
-
-  api: 
-    image: freitas-miranda/api-test:0.0.1
-    networks:
-      - test_net    
-    hostname: api-test
-    ports:
-      - "3131:3000"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M      
+      - ./scripts:/scripts   
 
 networks:
-  test_net:
-    name: test_net
+  localnet:
+    name: localnet
     driver: bridge
     external: true           
     
-## Subir ambiente
-# docker network create test_net
-# docker compose up -d influxdb grafana api
-
-## Rodar os testes
-# docker compose run k6 run /scripts/get-pix-charge.js
-# docker compose run k6 run /scripts/teste-carga.js
-# docker compose run k6 run /scripts/teste-pico.js
-
-# http://localhost:3030/d/k6/k6-load-testing-results?orgId=1&refresh=5s 
-
-## Resultados
-#checks.........................:  43.59% ✓  936       ✗ 1211  15M
-#checks.........................: 100.00% ✓ 4594       ✗ 0     50m
-
-## JMeter
-# docker pull justb4/jmeter:latest
-# docker volume create jmeter-volume
-# docker run --rm --network=test_net -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -v jmeter-volume:/jmeter -w /jmeter -it justb4/jmeter:latest
+# docker compose up -d influxdb grafana

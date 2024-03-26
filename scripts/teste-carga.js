@@ -23,7 +23,7 @@ export const options = {
 }
 
 export default function() {
-    const response = http.get('http://api-test:3000/pix/token/abc')
+    const response = http.get('http://test-carga_api:3000/pix/token/abc')
     check(response, { "status is ok": (r) => r.status === 200 })
     sleep(.300)
 }

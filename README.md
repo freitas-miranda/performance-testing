@@ -1,6 +1,7 @@
-# Performance Testing
+# Testes de carga e desempenho
 
-Este repositório contém exemplos e scripts para realizar testes de carga e desempenho utilizando diversas ferramentas populares, como K6, JMeter e ApacheBench (AB). Nosso objetivo é fornecer recursos e guias práticos para ajudar desenvolvedores e engenheiros de desempenho a avaliar e melhorar a escalabilidade e a robustez de suas aplicações.
+- Este repositório contém exemplos e scripts para realizar testes de carga e desempenho utilizando diversas ferramentas populares, como K6, JMeter e ApacheBench (AB).
+- O objetivo é fornecer recursos e guias práticos para ajudar desenvolvedores e engenheiros de desempenho a avaliar e melhorar a escalabilidade e a robustez de suas aplicações.
 
 ## Ferramentas Incluídas
 
@@ -46,6 +47,3 @@ ab -n 1000 -c 10 http://example.com/
 - **k6**: Scripts e documentação para testes com K6.
 - **jmeter**: Planos de teste e documentação para JMeter.
 - **ab**: Comandos e documentação para ApacheBench.
-
-## Contribuição
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests para melhorar este repositório.
